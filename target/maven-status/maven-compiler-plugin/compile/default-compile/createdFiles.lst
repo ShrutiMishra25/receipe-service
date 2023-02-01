@@ -1,9 +1,0 @@
-com/example/recipe/entity/Recipe.class
-com/example/recipe/RecipeApplication.class
-com/example/recipe/service/RecipeServiceImpl$1.class
-com/example/recipe/repository/IngredientRepository.class
-com/example/recipe/service/RecipeService.class
-com/example/recipe/service/RecipeServiceImpl.class
-com/example/recipe/controller/RecipeController.class
-com/example/recipe/repository/ReceipeRepository.class
-com/example/recipe/entity/Ingredient.class

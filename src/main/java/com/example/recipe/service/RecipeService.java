@@ -18,7 +18,11 @@ public interface RecipeService {
     /**
      * Method to get recipe based on selected condition
      *
+<<<<<<< HEAD
      * @param Recipe              The recipe object containg filter condition
+=======
+     * @param Recipe           The recipe object containg filter condition
+>>>>>>> f078b1314fd693ed674334a572e37b1d2d422f87
      * @param ingredientCondition condition saying if the ingredient mentioned need to be included or excluded
      * @return List<Recipe> List of the all the recipe with given filter
      */
@@ -42,6 +46,10 @@ public interface RecipeService {
     public Recipe updateRecipe(String name, Recipe recipe);
 
     /**
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> f078b1314fd693ed674334a572e37b1d2d422f87
      * @param name of recipe to be deleted
      * @return String stating deletion successful
      */
