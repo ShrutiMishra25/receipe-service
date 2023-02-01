@@ -12,10 +12,6 @@ import java.util.List;
 @Table(name = "recipe")
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "receipe_sequence")

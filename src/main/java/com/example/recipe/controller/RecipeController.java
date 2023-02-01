@@ -1,6 +1,6 @@
 package com.example.recipe.controller;
 
-import com.example.recipe.entity.Recipe;
+import com.example.recipe.model.RecipeDto;
 import com.example.recipe.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +23,8 @@ public class RecipeController {
      * @return ResponseEntity<> response entity containing list of all the recipes
      */
     @GetMapping("/recipes")
-    public ResponseEntity<List<Recipe>> getAllRecipes() {
-        List<Recipe> recipe = recipeService.getAllRecipes();
+    public ResponseEntity<List<RecipeDto>> getAllRecipes() {
+        List<RecipeDto> recipe = recipeService.getAllRecipes();
         return new ResponseEntity<>(recipe, HttpStatus.OK);
     }
 
@@ -34,8 +34,8 @@ public class RecipeController {
      * @return ResponseEntity<> response entity containing added recipe
      */
     @PostMapping("/recipes")
-    public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe recipe) {
-        Recipe addedRecipe = recipeService.addRecipe(recipe);
+    public ResponseEntity<RecipeDto> addRecipe(@RequestBody RecipeDto recipe) {
+        RecipeDto addedRecipe = recipeService.addRecipe(recipe);
         return new ResponseEntity<>(addedRecipe, HttpStatus.CREATED);
     }
 
@@ -46,9 +46,9 @@ public class RecipeController {
      * @return ResponseEntity<> response entity containing added recipe
      */
     @PutMapping("/recipes/{name}")
-    public ResponseEntity<Recipe> updateRecipe(@PathVariable(name = "name") String name,
-                                               @RequestBody Recipe recipe) {
-        Recipe updatedRecipe = recipeService.updateRecipe(name, recipe);
+    public ResponseEntity<RecipeDto> updateRecipe(@PathVariable(name = "name") String name,
+                                                  @RequestBody RecipeDto recipe) {
+        RecipeDto updatedRecipe = recipeService.updateRecipe(name, recipe);
         return new ResponseEntity<>(updatedRecipe, HttpStatus.CREATED);
     }
 
@@ -67,13 +67,13 @@ public class RecipeController {
     /**
      * Method to get the recipe based on provided filter
      *
-     * @param Recipe              Recipe object containg the filter condition
+     * @param recipeDto           Recipe object containg the filter condition
      * @param ingredientCondition condition to include or exclude given recipe
      * @return
      */
     @GetMapping("/selected")
-    public ResponseEntity<List<Recipe>> getRecipeByCondition(@RequestBody Recipe Recipe, @RequestParam(name = "ingredientCondition", required = false, defaultValue = "include") String ingredientCondition) {
-        List<Recipe> recipe = recipeService.getRecipeByCondition(Recipe, ingredientCondition);
+    public ResponseEntity<List<RecipeDto>> getRecipeByCondition(@RequestBody RecipeDto recipeDto, @RequestParam(name = "ingredientCondition", required = false, defaultValue = "include") String ingredientCondition) {
+        List<RecipeDto> recipe = recipeService.getRecipeByCondition(recipeDto, ingredientCondition);
         return new ResponseEntity<>(recipe, HttpStatus.OK);
     }
 

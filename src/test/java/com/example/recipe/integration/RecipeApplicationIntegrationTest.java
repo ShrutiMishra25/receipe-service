@@ -1,4 +1,4 @@
-/*
+
 package com.example.recipe.integration;
 
 import com.example.recipe.controller.RecipeController;
@@ -11,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -31,7 +33,7 @@ public class RecipeApplicationIntegrationTest {
     @Test
     void testGetAllRecipes() throws Exception {
         RecipeDto recipe = new RecipeDto();
-        Set<String> ingredient = new HashSet<>();
+        List<String> ingredient = new ArrayList<>();
         ingredient.add("pasta");
         ingredient.add("tomato");
         recipe.setIngredients(ingredient);
@@ -43,4 +45,5 @@ public class RecipeApplicationIntegrationTest {
                 .andExpect(status().isOk());
     }
 }
-*/
+
+

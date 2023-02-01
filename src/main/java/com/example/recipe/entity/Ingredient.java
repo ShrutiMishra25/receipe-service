@@ -11,10 +11,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "ingredient")
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
 public class Ingredient {
 
     @Id

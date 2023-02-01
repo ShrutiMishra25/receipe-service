@@ -2,6 +2,8 @@ package com.example.recipe.service;
 
 import com.example.recipe.entity.Ingredient;
 import com.example.recipe.entity.Recipe;
+import com.example.recipe.mapper.DtoEntityMapper;
+import com.example.recipe.model.RecipeDto;
 import com.example.recipe.repository.IngredientRepository;
 import com.example.recipe.repository.ReceipeRepository;
 
@@ -23,6 +25,8 @@ public class RecipeServiceImpl implements RecipeService {
     private ReceipeRepository receipeRepository;
     @Resource
     private IngredientRepository ingredientRepository;
+    @Resource
+    private DtoEntityMapper dtoEntityMapper;
 
 
     /**
@@ -31,50 +35,62 @@ public class RecipeServiceImpl implements RecipeService {
      * @return List<Recipe> List of the all the recipe present in database
      */
     @Override
-    public List<Recipe> getAllRecipes() {
+    public List<RecipeDto> getAllRecipes() {
+        List<RecipeDto> recipeDtos =new ArrayList<>();
         List<Recipe> recipes = receipeRepository.findAll();
-        return recipes;
+        recipes.stream().forEach(recipe -> {
+            RecipeDto recipeDto = dtoEntityMapper.mapEntitytoDto(recipe);
+            recipeDtos.add(recipeDto);
+        });
+        return recipeDtos;
     }
 
     /**
      * Method to get recipe based on selected condition
      *
-     * @param Recipe              The recipe object containg filter condition
+     * @param recipe              The recipe object containg filter condition
      * @param ingredientCondition condition saying if the ingredient mentioned need to be included or excluded
      * @return List<Recipe> List of the all the recipe with given filter
      */
     @Override
-    public List<Recipe> getRecipeByCondition(Recipe Recipe, String ingredientCondition) {
-        List<Recipe> recipes = findByCriteria(Recipe, ingredientCondition);
-        return recipes;
+    public List<RecipeDto> getRecipeByCondition(RecipeDto recipe, String ingredientCondition) {
+        List<RecipeDto> recipeDtos =new ArrayList<>();
+        Recipe recipeEntity = dtoEntityMapper.mapDtoToEntity(recipe);
+        List<Recipe> recipes = findByCriteria(recipeEntity, ingredientCondition);
+        recipes.stream().forEach(recipemap -> {
+            RecipeDto recipeDto = dtoEntityMapper.mapEntitytoDto(recipemap);
+            recipeDtos.add(recipeDto);
+        });
+        return recipeDtos;
     }
 
     /**
      * Method to add recipe
      *
-     * @param recipe the recipe to be added
+     * @param recipedto the recipe to be added
      * @return Recipe added recipe
      */
     @Override
-    public Recipe addRecipe(Recipe recipe) {
-        return receipeRepository.save(recipe);
+    public RecipeDto addRecipe(RecipeDto recipedto) {
+       Recipe recipe= receipeRepository.save(dtoEntityMapper.mapDtoToEntity(recipedto));
+        return dtoEntityMapper.mapEntitytoDto(recipe);
     }
 
     /**
      * Method to update recipe
      *
      * @param name   name of recipe to be updated
-     * @param recipe the recipe to be added
+     * @param recipeDto the recipe to be added
      * @return Recipe updated recipe
      */
     @Override
-    public Recipe updateRecipe(String name, Recipe recipe) {
+    public RecipeDto updateRecipe(String name, RecipeDto recipeDto) {
+        Recipe recipe = dtoEntityMapper.mapDtoToEntity(recipeDto);
         Recipe recipeName = receipeRepository.findByName(name);
         if (null != recipeName)
             recipe.setId(recipeName.getId());
-
         Recipe updatedRecipe = receipeRepository.save(recipe);
-        return updatedRecipe;
+        return dtoEntityMapper.mapEntitytoDto(updatedRecipe);
     }
 
     /**
@@ -86,7 +102,6 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public String deleteReceipe(String name) {
         Recipe recipe = receipeRepository.findByName(name);
-        //Remove the related ingredients from recipe entity.
         receipeRepository.deleteById(recipe.getId());
         return "Recipe " + name + " deleted successfully!";
     }
@@ -95,9 +110,8 @@ public class RecipeServiceImpl implements RecipeService {
         return receipeRepository.findAll(new Specification<Recipe>() {
             @Override
             public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-
                 List<Predicate> predicates = new ArrayList<>();
-                List<Predicate> ingredientPredicates = new ArrayList<Predicate>();
+                List<Predicate> ingredientPredicates = new ArrayList<>();
                 Join<Recipe, Ingredient> hnJoin = root.join("ingredients");
 
                 if (recipe.getInstructions() != null) {
@@ -114,19 +128,16 @@ public class RecipeServiceImpl implements RecipeService {
                 }
                 if (recipe.getIngredients() != null && ingredientCondition.equals("include")) {
                     recipe.getIngredients().stream().forEach(ingredientName -> {
-                        if (null != ingredientName) {
-                            if (StringUtils.isNotBlank(ingredientName.getName())) {
+                        if (null != ingredientName && StringUtils.isNotBlank(ingredientName.getName())) {
                                 ingredientPredicates.add(criteriaBuilder.equal(hnJoin.get("name"), ingredientName.getName()));
                             }
-                        }
                     });
                     predicates.add(criteriaBuilder.and(ingredientPredicates.toArray(new Predicate[]{})));
 
                 }
                 if (recipe.getIngredients() != null && ingredientCondition.equals("exclude")) {
                     recipe.getIngredients().stream().forEach(ingredientName -> {
-                        if (null != ingredientName) {
-                            if (StringUtils.isNotBlank(ingredientName.getName())) {
+                        if (null != ingredientName && StringUtils.isNotBlank(ingredientName.getName())) {{
                                 ingredientPredicates.add(criteriaBuilder.not(hnJoin.get("name").in(ingredientName.getName())));
                             }
                         }

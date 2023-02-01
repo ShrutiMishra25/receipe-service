@@ -1,0 +1,11 @@
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/repository/ReceipeRepository.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/entity/Recipe.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/model/RecipeDto.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/repository/IngredientRepository.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/mapper/DtoEntityMapper.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/controller/RecipeController.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/RecipeApplication.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/exception/GlobalExceptionHandler.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/service/RecipeService.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/entity/Ingredient.java
+/Users/shrutimishra/Desktop/recipe/receipe-service/src/main/java/com/example/recipe/service/RecipeServiceImpl.java

@@ -1,6 +1,6 @@
 package com.example.recipe.service;
 
-import com.example.recipe.entity.Recipe;
+import com.example.recipe.model.RecipeDto;
 
 import java.util.List;
 
@@ -11,22 +11,18 @@ public interface RecipeService {
     /**
      * Method to get all recipe
      *
-     * @return List<Recipe> List of the all the recipe present in database
+     * @return List<RecipeDto> List of the all the recipe present in database
      */
-    public List<Recipe> getAllRecipes();
+    public List<RecipeDto> getAllRecipes();
 
     /**
      * Method to get recipe based on selected condition
      *
-<<<<<<< HEAD
-     * @param Recipe              The recipe object containg filter condition
-=======
-     * @param Recipe           The recipe object containg filter condition
->>>>>>> f078b1314fd693ed674334a572e37b1d2d422f87
-     * @param ingredientCondition condition saying if the ingredient mentioned need to be included or excluded
+     * @param recipe              The recipe object containg filter condition
+     * @param ingredientCondition condition saying if the ingredient mentioned need to be included or excluder
      * @return List<Recipe> List of the all the recipe with given filter
      */
-    List<Recipe> getRecipeByCondition(Recipe Recipe, String ingredientCondition);
+    List<RecipeDto> getRecipeByCondition(RecipeDto recipe, String ingredientCondition);
 
     /**
      * Method to add recipe
@@ -34,7 +30,7 @@ public interface RecipeService {
      * @param recipe the recipe to be added
      * @return Recipe added recipe
      */
-    public Recipe addRecipe(Recipe recipe);
+    public RecipeDto addRecipe(RecipeDto recipe);
 
     /**
      * Method to update recipe
@@ -43,13 +39,9 @@ public interface RecipeService {
      * @param recipe the recipe to be added
      * @return Recipe updated recipe
      */
-    public Recipe updateRecipe(String name, Recipe recipe);
+    public RecipeDto updateRecipe(String name, RecipeDto recipe);
 
     /**
-<<<<<<< HEAD
-=======
-     *
->>>>>>> f078b1314fd693ed674334a572e37b1d2d422f87
      * @param name of recipe to be deleted
      * @return String stating deletion successful
      */

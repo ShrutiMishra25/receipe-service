@@ -3,7 +3,7 @@ package com.example.recipe.controller;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
-import com.example.recipe.entity.Recipe;
+import com.example.recipe.model.RecipeDto;
 import com.example.recipe.service.RecipeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -63,27 +63,25 @@ class RecipeControllerTest {
     }
 
     /**
-     * Method under test: {@link RecipeController#addRecipe(Recipe)}
+     * Method under test: {@link RecipeController#addRecipe(RecipeDto)}
      */
     @Test
     void testAddRecipe() throws Exception {
-        Recipe recipe = new Recipe();
-        recipe.setId(1);
-        recipe.setIngredients(new ArrayList<>());
-        recipe.setInstructions("Instructions");
-        recipe.setName("Name");
-        recipe.setServings(1);
-        recipe.setType("Type");
-        when(recipeService.addRecipe((Recipe) any())).thenReturn(recipe);
+        RecipeDto recipeDto = new RecipeDto();
+        recipeDto.setIngredients(new ArrayList<>());
+        recipeDto.setInstructions("Instructions");
+        recipeDto.setName("Name");
+        recipeDto.setServings(1);
+        recipeDto.setType("Type");
+        when(recipeService.addRecipe((RecipeDto) any())).thenReturn(recipeDto);
 
-        Recipe recipe1 = new Recipe();
-        recipe1.setId(1);
-        recipe1.setIngredients(new ArrayList<>());
-        recipe1.setInstructions("Instructions");
-        recipe1.setName("Name");
-        recipe1.setServings(1);
-        recipe1.setType("Type");
-        String content = (new ObjectMapper()).writeValueAsString(recipe1);
+        RecipeDto recipeDto1 = new RecipeDto();
+        recipeDto1.setIngredients(new ArrayList<>());
+        recipeDto1.setInstructions("Instructions");
+        recipeDto1.setName("Name");
+        recipeDto1.setServings(1);
+        recipeDto1.setType("Type");
+        String content = (new ObjectMapper()).writeValueAsString(recipeDto1);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/recipes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content);
@@ -94,31 +92,29 @@ class RecipeControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"id\":1,\"name\":\"Name\",\"instructions\":\"Instructions\",\"servings\":1,\"type\":\"Type\",\"ingredients\":[]}"));
+                                "{\"name\":\"Name\",\"instructions\":\"Instructions\",\"servings\":1,\"type\":\"Type\",\"ingredients\":[]}"));
     }
 
     /**
-     * Method under test: {@link RecipeController#updateRecipe(String, Recipe)}
+     * Method under test: {@link RecipeController#updateRecipe(String, RecipeDto)}
      */
     @Test
     void testUpdateRecipe() throws Exception {
-        Recipe recipe = new Recipe();
-        recipe.setId(1);
-        recipe.setIngredients(new ArrayList<>());
-        recipe.setInstructions("Instructions");
-        recipe.setName("Name");
-        recipe.setServings(1);
-        recipe.setType("Type");
-        when(recipeService.updateRecipe((String) any(), (Recipe) any())).thenReturn(recipe);
+        RecipeDto recipeDto = new RecipeDto();
+        recipeDto.setIngredients(new ArrayList<>());
+        recipeDto.setInstructions("Instructions");
+        recipeDto.setName("Name");
+        recipeDto.setServings(1);
+        recipeDto.setType("Type");
+        when(recipeService.updateRecipe((String) any(), (RecipeDto) any())).thenReturn(recipeDto);
 
-        Recipe recipe1 = new Recipe();
-        recipe1.setId(1);
-        recipe1.setIngredients(new ArrayList<>());
-        recipe1.setInstructions("Instructions");
-        recipe1.setName("Name");
-        recipe1.setServings(1);
-        recipe1.setType("Type");
-        String content = (new ObjectMapper()).writeValueAsString(recipe1);
+        RecipeDto recipeDto1 = new RecipeDto();
+        recipeDto1.setIngredients(new ArrayList<>());
+        recipeDto1.setInstructions("Instructions");
+        recipeDto1.setName("Name");
+        recipeDto1.setServings(1);
+        recipeDto1.setType("Type");
+        String content = (new ObjectMapper()).writeValueAsString(recipeDto1);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/recipes/{name}", "Name")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content);
@@ -129,7 +125,7 @@ class RecipeControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content()
                         .string(
-                                "{\"id\":1,\"name\":\"Name\",\"instructions\":\"Instructions\",\"servings\":1,\"type\":\"Type\",\"ingredients\":[]}"));
+                                "{\"name\":\"Name\",\"instructions\":\"Instructions\",\"servings\":1,\"type\":\"Type\",\"ingredients\":[]}"));
     }
 
     /**
@@ -164,20 +160,19 @@ class RecipeControllerTest {
     }
 
     /**
-     * Method under test: {@link RecipeController#getRecipeByCondition(Recipe, String)}
+     * Method under test: {@link RecipeController#getRecipeByCondition(RecipeDto, String)}
      */
     @Test
     void testGetRecipeByCondition() throws Exception {
-        when(recipeService.getRecipeByCondition((Recipe) any(), (String) any())).thenReturn(new ArrayList<>());
+        when(recipeService.getRecipeByCondition((RecipeDto) any(), (String) any())).thenReturn(new ArrayList<>());
 
-        Recipe recipe = new Recipe();
-        recipe.setId(1);
-        recipe.setIngredients(new ArrayList<>());
-        recipe.setInstructions("Instructions");
-        recipe.setName("Name");
-        recipe.setServings(1);
-        recipe.setType("Type");
-        String content = (new ObjectMapper()).writeValueAsString(recipe);
+        RecipeDto recipeDto = new RecipeDto();
+        recipeDto.setIngredients(new ArrayList<>());
+        recipeDto.setInstructions("Instructions");
+        recipeDto.setName("Name");
+        recipeDto.setServings(1);
+        recipeDto.setType("Type");
+        String content = (new ObjectMapper()).writeValueAsString(recipeDto);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/selected")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content);
